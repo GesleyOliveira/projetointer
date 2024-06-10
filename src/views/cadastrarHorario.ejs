@@ -1,0 +1,119 @@
+<%- include('header'); -%>
+<%- include('menuLateral'); -%>
+
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Cadastro de Horários</h3>
+                <form id="schedule-form">
+                    <div class="form-group">
+                        <label for="day">Dia da Semana:</label>
+                        <select id="day" name="day" class="form-control">
+                            <option value="Segunda-feira">Segunda-feira</option>
+                            <option value="Terça-feira">Terça-feira</option>
+                            <option value="Quarta-feira">Quarta-feira</option>
+                            <option value="Quinta-feira">Quinta-feira</option>
+                            <option value="Sexta-feira">Sexta-feira</option>
+                            <option value="Sábado">Sábado</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="entry-time">Horário de Entrada:</label>
+                        <input type="time" id="entry-time" name="entry-time" required class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="exit-time">Horário de Saída:</label>
+                        <input type="time" id="exit-time" name="exit-time" required class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Adicionar</button>
+                    <button type="button" class="btn btn-secondary">Cancelar</button>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <h3>Horários Cadastrados</h3>
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Dia da Semana</th>
+                                <th>Entrada</th>
+                                <th>Saída</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="schedule-list">
+                            <!-- Itens da lista serão adicionados dinamicamente aqui -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Adicione os scripts do Bootstrap e o seu script personalizado -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById('schedule-form').addEventListener('submit', function (event) {
+            event.preventDefault(); // Evita o envio do formulário
+
+            const day = document.getElementById('day').value;
+            const entryTime = document.getElementById('entry-time').value;
+            const exitTime = document.getElementById('exit-time').value;
+
+            const newRow = document.createElement('tr');
+
+            newRow.innerHTML = `
+                <td>${day}</td>
+                <td>${entryTime}</td>
+                <td>${exitTime}</td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-sm btn-primary edit-button">Editar</button>
+                        <button class="btn btn-sm btn-danger delete-button ml-2">Excluir</button>
+                    </div>
+                </td>
+            `;
+
+            document.getElementById('schedule-list').appendChild(newRow);
+
+            document.getElementById('day').value = 'Segunda-feira';
+            document.getElementById('entry-time').value = '';
+            document.getElementById('exit-time').value = '';
+
+            newRow.querySelector('.edit-button').addEventListener('click', editItem);
+            newRow.querySelector('.delete-button').addEventListener('click', deleteItem);
+        });
+
+        function deleteItem(event) {
+            const row = event.target.closest('tr');
+            row.remove();
+        }
+
+        function editItem(event) {
+            const row = event.target.closest('tr');
+            const day = row.children[0].textContent;
+            const entryTime = row.children[1].textContent;
+            const exitTime = row.children[2].textContent;
+
+            document.getElementById('day').value = day;
+            document.getElementById('entry-time').value = entryTime;
+            document.getElementById('exit-time').value = exitTime;
+
+            row.remove();
+        }
+
+        document.addEventListener('click', function (event) {
+            if (event.target.classList.contains('delete-button')) {
+                deleteItem(event);
+            }
+            if (event.target.classList.contains('edit-button')) {
+                editItem(event);
+            }
+        });
+    </script>
+</body>
+
+<%- include('footer'); -%>

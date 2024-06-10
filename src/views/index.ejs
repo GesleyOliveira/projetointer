@@ -1,0 +1,196 @@
+<%- include('header'); -%>
+
+    <%- include('menuLateral'); -%>
+
+        <body>
+            <div class="container mt-5">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <h3>Informações Cadastradas</h3>
+                        <div class="table-container">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Matéria</th>
+                                        <th>Nome</th>
+                                        <th>Dia</th>
+                                        <th>Entrada</th>
+                                        <th>Saída</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="info-list">
+
+                                    <tr>
+                                        <td>Banco de Dados Não Relacional</td>
+                                        <td>Ricardo Leme</td>
+                                        <td>Segunda-feira</td>
+                                        <td>19:00</td>
+                                        <td>22:30</td>
+                                        <td>
+                                            <button
+                                                class="btn btn-sm btn-primary edit-button d-print-none">Editar</button>
+                                            <button
+                                                class="btn btn-sm btn-danger delete-button ml-2 d-print-none">Excluir</button>
+                                            <button
+                                                class="btn btn-sm btn-info print-button ml-2 d-print-none">Imprimir</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editModalLabel">Editar Informações</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <form id="editForm">
+                                <div class="form-group">
+                                    <label for="edit-materia">Matéria</label>
+                                    <input type="text" class="form-control" id="edit-materia" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="edit-nome">Nome</label>
+                                    <input type="text" class="form-control" id="edit-nome" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="edit-dia">Dia</label>
+                                    <input type="text" class="form-control" id="edit-dia" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="edit-entrada">Entrada</label>
+                                    <input type="text" class="form-control" id="edit-entrada" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="edit-saida">Saída</label>
+                                    <input type="text" class="form-control" id="edit-saida" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            <script>
+
+                function printTable() {
+      
+                    const tableContent = document.getElementById('info-list').innerHTML;
+
+                    const temporaryElement = document.createElement('div');
+
+
+                    temporaryElement.innerHTML = '<div class="print-content"><table>' + tableContent + '</table></div>';
+
+
+                    const buttons = temporaryElement.querySelectorAll('.edit-button, .delete-button, .print-button');
+                    buttons.forEach(button => button.remove());
+
+                    const tableRows = temporaryElement.querySelectorAll('tr');
+                    tableRows.forEach(row => {
+                        const columns = row.querySelectorAll('td');
+                        const materia = columns[0].textContent;
+                        const nome = columns[1].textContent;
+                        const dia = columns[2].textContent;
+                        const entrada = columns[3].textContent;
+                        const saida = columns[4].textContent;
+                        row.innerHTML = `<tr><td colspan="5">Matéria: ${materia} | Nome: ${nome} | Dia: ${dia} | Entrada: ${entrada} | Saída: ${saida}</td></tr>`;
+                    });
+
+                    temporaryElement.innerHTML += '<div class="signature">Assinatura: __________________</div>';
+
+                    const printWin = window.open('');
+                    printWin.document.write('<html><head><title>Informações Cadastradas</title><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"></head><body>');
+                    printWin.document.write(temporaryElement.innerHTML);
+                    printWin.document.write('</body></html>');
+                    printWin.print();
+                }
+
+
+                function abrirModalEditar(event) {
+                    const row = event.target.closest('tr');
+                    const columns = row.querySelectorAll('td');
+
+                    document.getElementById('edit-materia').value = columns[0].textContent;
+                    document.getElementById('edit-nome').value = columns[1].textContent;
+                    document.getElementById('edit-dia').value = columns[2].textContent;
+                    document.getElementById('edit-entrada').value = columns[3].textContent;
+                    document.getElementById('edit-saida').value = columns[4].textContent;
+
+
+                    document.querySelectorAll('#info-list tr').forEach(tr => tr.classList.remove('selected'));
+                    row.classList.add('selected');
+
+                    $('#editModal').modal('show');
+                }
+
+                // Adicione o event listener para enviar o formulário ao clicar no botão "Salvar Alterações"
+                document.getElementById('editForm').addEventListener('submit', function (event) {
+                    event.preventDefault(); // Evita o envio do formulário
+
+
+                    const materia = document.getElementById('edit-materia').value;
+                    const nome = document.getElementById('edit-nome').value;
+                    const dia = document.getElementById('edit-dia').value;
+                    const entrada = document.getElementById('edit-entrada').value;
+                    const saida = document.getElementById('edit-saida').value;
+
+                    const row = document.querySelector('#info-list tr.selected');
+                    if (row) {
+
+                        const columns = row.querySelectorAll('td');
+                        columns[0].textContent = materia;
+                        columns[1].textContent = nome;
+                        columns[2].textContent = dia;
+                        columns[3].textContent = entrada;
+                        columns[4].textContent = saida;
+
+                        $('#editModal').modal('hide');
+                    } else {
+                        console.error('Nenhuma linha selecionada para edição.');
+                    }
+                });
+
+
+                document.querySelectorAll('.edit-button').forEach(button => {
+                    button.addEventListener('click', abrirModalEditar);
+                });
+
+
+                function deletarItem(event) {
+                    const row = event.target.closest('tr');
+                    row.remove();
+                }
+
+                document.querySelector('.print-button').addEventListener('click', printTable);
+
+
+                const deleteButtons = document.querySelectorAll('.delete-button');
+                deleteButtons.forEach(button => {
+                    button.addEventListener('click', deletarItem);
+                });
+
+
+            </script>
+
+
+
+
+            <%- include('footer'); -%>

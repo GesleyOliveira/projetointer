@@ -1,0 +1,47 @@
+<%- include('header'); -%>
+
+<%- include('menuLateral'); -%>
+
+<body>
+
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Barra Lateral -->
+
+                <%- include('menuLateral'); -%>
+
+
+                    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 main-content">
+                        
+                        <!-- Tabela de agendamento -->
+                        <h2>Agenda</h2>
+                        <div class='table-responsive'>
+                            <table class='table table-striped'>
+                                <thead>
+                                    <tr>
+                                        <th>Professor</th>
+                                        <th>Data</th>
+                                        <th>Hora</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>João Silva</td>
+                                        <td>12/10/19</td>
+                                        <td>9:00h</td>
+                                        <td>
+                                            <button class="btn btn-primary">Editar</button>
+                                            <button class="btn btn-danger">Deletar</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </main>
+            </div>
+        </div>
+    </body>
+
+
+    <%- include('footer'); -%>

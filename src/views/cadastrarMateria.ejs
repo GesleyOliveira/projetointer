@@ -1,0 +1,123 @@
+<%- include('header'); -%>
+
+<%- include('menuLateral'); -%>
+
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Espaço para cadastrar à esquerda -->
+            <div class="col-md-6">
+                <h3>Cadastro de Matérias</h3>
+                <form id="subject-form">
+                    <div class="form-group">
+                        <label for="subject-name">Nome da Matéria:</label>
+                        <input type="text" id="subject-name" name="subject-name" placeholder="Nome da Matéria" required class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <button type="button" class="btn btn-secondary">Cancelar</button>
+                </form>
+            </div>
+
+            <!-- Espaço para listar à direita -->
+            <div class="col-md-6">
+                <h3>Matérias Cadastradas</h3>
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nome da Matéria</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="subject-list">
+                            <!-- Itens da lista serão adicionados dinamicamente aqui -->
+                            <tr>
+                                <td>Banco de Dados Não Relacional</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <button class="btn btn-sm btn-primary edit-button">Editar</button>
+                                        <button class="btn btn-sm btn-danger delete-button ml-2">Excluir</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Desenvolvimento Web III</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <button class="btn btn-sm btn-primary edit-button">Editar</button>
+                                        <button class="btn btn-sm btn-danger delete-button ml-2">Excluir</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Técnicas de Programação II</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <button class="btn btn-sm btn-primary edit-button">Editar</button>
+                                        <button class="btn btn-sm btn-danger delete-button ml-2">Excluir</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Adicione os scripts do Bootstrap e o seu script personalizado -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById('subject-form').addEventListener('submit', function (event) {
+            event.preventDefault(); // Evita o envio do formulário
+
+            const subjectName = document.getElementById('subject-name').value;
+
+            const newRow = document.createElement('tr');
+
+            newRow.innerHTML = `
+                <td>${subjectName}</td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-sm btn-primary edit-button">Editar</button>
+                        <button class="btn btn-sm btn-danger delete-button ml-2">Excluir</button>
+                    </div>
+                </td>
+            `;
+
+            document.getElementById('subject-list').appendChild(newRow);
+
+            document.getElementById('subject-name').value = '';
+
+            newRow.querySelector('.edit-button').addEventListener('click', editItem);
+            newRow.querySelector('.delete-button').addEventListener('click', deleteItem);
+        });
+
+        function deleteItem(event) {
+            const row = event.target.closest('tr');
+            row.remove();
+        }
+
+        function editItem(event) {
+            const row = event.target.closest('tr');
+            const subjectName = row.children[0].textContent;
+
+            document.getElementById('subject-name').value = subjectName;
+
+            row.remove();
+        }
+
+        document.addEventListener('click', function (event) {
+            if (event.target.classList.contains('delete-button')) {
+                deleteItem(event);
+            }
+            if (event.target.classList.contains('edit-button')) {
+                editItem(event);
+            }
+        });
+    </script>
+</body>
+
+<%- include('footer'); -%>

@@ -1,0 +1,26 @@
+
+.content {
+    min-height: calc(100vh - 136px);
+    /* altura do header (56px) + footer (80px) */
+}
+ 
+
+  html, body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #333; /* Cor de fundo do rodapé */
+    color: white; /* Cor do texto do rodapé */
+    text-align: center;
+    padding: 20px; /* Espaçamento interno do rodapé (aumentei para 20px) */
+}
+
+
+

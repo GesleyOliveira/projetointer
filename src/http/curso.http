@@ -1,0 +1,52 @@
+@baseURL = http://localhost:4000/curso
+
+//POST insere um novo curso
+###
+POST {{baseURL}}
+Content-Type: application/json
+access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7ImlkIjoiNjY2MjM0M2FjMjYzMDViNWMyMjRlYTc3In0sImlhdCI6MTcxNzcxMTkzNiwiZXhwIjoxNzE3Nzk4MzM2fQ.mWb_w3pnT0IbT7lI78_U_84v8Yd3c_0N2-jmlL2brHc
+
+{
+    "nome": "DSM",
+    "totalHoras": 80   
+}
+
+//GET lista todos os cursos
+###
+GET {{baseURL}}
+Content-Type: application/json
+access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7ImlkIjoiNjY2MjM0M2FjMjYzMDViNWMyMjRlYTc3In0sImlhdCI6MTcxNzcxMTkzNiwiZXhwIjoxNzE3Nzk4MzM2fQ.mWb_w3pnT0IbT7lI78_U_84v8Yd3c_0N2-jmlL2brHc
+
+{
+
+}
+
+//GET busca o curso pelo id
+###
+GET {{baseURL}}/665f7d8b21dd9437273614e9
+Content-Type: application/json
+access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7ImlkIjoiNjY1YjNlODMzNGNmMjc0NWE4MDk2MWI4In0sImlhdCI6MTcxNzUxMTY0MywiZXhwIjoxNzE3NTk4MDQzfQ.UC9hzMW_Ht1rmNw5cO2Z6gzyD6Ny5OxjX8F_UVd39QM
+
+{
+    
+}
+
+//DELETE deleta o curso pelo id
+###
+DELETE {{baseURL}}/665f7d8b21dd9437273614e9
+Content-Type: application/json
+access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7ImlkIjoiNjY1YjNlODMzNGNmMjc0NWE4MDk2MWI4In0sImlhdCI6MTcxNzUxMTY0MywiZXhwIjoxNzE3NTk4MDQzfQ.UC9hzMW_Ht1rmNw5cO2Z6gzyD6Ny5OxjX8F_UVd39QM
+
+{
+    
+}
+
+//PUT atualiza o curso pelo id
+###
+PUT {{baseURL}}/665f7d7021dd9437273614e6
+Content-Type: application/json
+access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7ImlkIjoiNjY1YjNlODMzNGNmMjc0NWE4MDk2MWI4In0sImlhdCI6MTcxNzUxMTY0MywiZXhwIjoxNzE3NTk4MDQzfQ.UC9hzMW_Ht1rmNw5cO2Z6gzyD6Ny5OxjX8F_UVd39QM
+
+{
+   "nome": "DSM 2"
+}

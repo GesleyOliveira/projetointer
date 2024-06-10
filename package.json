@@ -1,0 +1,36 @@
+{
+  "name": "backendmongo",
+  "version": "1.0.0",
+  "description": "Integrantes do Projeto: Gesley Rosa, João Lucas",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "swagger": "node swagger.js"
+  },
+  "keywords": [
+    "mongodb",
+    "nodejs"
+  ],
+  "author": "João Lucas",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-validator": "^7.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.5.0",
+    "mongoose": "^8.4.1",
+    "swagger-autogen": "^2.23.7",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "body-parser": "^1.20.2",
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.0",
+    "supertest": "^7.0.0"
+  }
+}
